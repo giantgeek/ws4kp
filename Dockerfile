@@ -11,6 +11,8 @@ RUN rm dist/playlist.json
 
 FROM nginx:alpine
 
+LABEL maintainer="Scott Fredrickson <scott@giantgeek.com>"
+
 COPY static-env-handler.sh /docker-entrypoint.d/01-static-env-handler.sh
 RUN chmod +x /docker-entrypoint.d/01-static-env-handler.sh
 
