@@ -1,4 +1,7 @@
 FROM node:24-alpine
+
+LABEL maintainer="Scott Fredrickson <scott@giantgeek.com>"
+
 WORKDIR /app
 
 COPY package.json package-lock.json ./
