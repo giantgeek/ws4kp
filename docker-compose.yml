@@ -1,0 +1,20 @@
+services:
+  ws4kp:
+    build:
+      context: . 
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    dns:
+      - 172.19.0.53  # Pi-hole DNS
+      - 1.1.1.1      # Cloudflare fallback
+    networks:
+      - traefik-network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.ws4kp.rule=Host(`ws4kp.localhost`)"
+      - "traefik.http.services.ws4kp.loadbalancer.server.port=8080"
+      - "traefik.docker.network=traefik-network"
+
+networks:
+  traefik-network:
+    external: true
