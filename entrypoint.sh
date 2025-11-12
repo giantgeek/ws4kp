@@ -9,5 +9,5 @@ set -e
 JAR_PATH="${1:-/home/spring/app.jar}"
 shift || true
 
-exec java -Xlog:async -XX:AsyncLogBufferSize=100M -jar "${JAR_PATH}" "$@"
+exec java -Xlog:async -XX:AsyncLogBufferSize=10M -jar "${JAR_PATH}" "$@"
 
