@@ -9,7 +9,7 @@ RUN npm install
 RUN npm run build
 RUN rm dist/playlist.json
 
-FROM nginx:1.29-3-alpine
+FROM nginx:1.29.3-alpine
 
 LABEL maintainer="Scott Fredrickson <scott@giantgeek.com>"
 
