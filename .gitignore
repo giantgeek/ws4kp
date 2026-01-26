@@ -13,5 +13,7 @@ server/music/*
 dist/*
 !dist/readme.txt
 
+.idea
+
 #environment variables
 .env
