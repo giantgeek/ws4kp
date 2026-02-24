@@ -1,9 +1,8 @@
-<!DOCTYPE html>
-
+<!doctype html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
-
 <head>
   <meta charset="utf-8" />
+  <base href="/" />
   <title>WeatherStar 4000+</title>
   <meta name="description" content="Web based WeatherStar 4000 simulator that reports current and forecast weather conditions plus a few extras!" />
   <meta name="keywords" content="WeatherStar 4000+" />
@@ -29,21 +28,21 @@
   <% } %>
 
   <% if (production) { %>
-  <link rel="stylesheet" type="text/css" href="resources/ws.min.css?_=<%=production%>" />
-  <script type="text/javascript" src="resources/vendor.min.js?_=<%=production%>"></script>
-  <script type="text/javascript" src="resources/ws.min.js?_=<%=production%>"></script>
-  <script type="text/javascript">
+  <link rel="stylesheet" href="resources/ws.min.css?_=<%=production%>" />
+  <script src="resources/vendor.min.js?_=<%=production%>"></script>
+  <script src="resources/ws.min.js?_=<%=production%>"></script>
+  <script>
     const OVERRIDES = <%- JSON.stringify(OVERRIDES ?? {}) %>;
   </script>
   <% } else { %>
-  <link rel="stylesheet" type="text/css" href="styles/main.css" />
-  <!--<script type="text/javascript">const OVERRIDES={};</script>-->
-  <script type="text/javascript">
+  <link rel="stylesheet" href="styles/main.css" />
+  <!--<script>const OVERRIDES={};</script>-->
+  <script>
     OVERRIDES = <%- JSON.stringify(OVERRIDES ?? {}) %>;
   </script>
-  <script type="text/javascript" src="scripts/vendor/auto/nosleep.js"></script>
-  <script type="text/javascript" src="scripts/vendor/auto/swiped-events.js"></script>
-  <script type="text/javascript" src="scripts/vendor/auto/suncalc.js"></script>
+  <script src="scripts/vendor/auto/nosleep.js"></script>
+  <script src="scripts/vendor/auto/swiped-events.js"></script>
+  <script src="scripts/vendor/auto/suncalc.js"></script>
   <script type="module" src="scripts/modules/hazards.mjs"></script>
   <script type="module" src="scripts/modules/currentweatherscroll.mjs"></script>
   <script type="module" src="scripts/modules/currentweather.mjs"></script>
@@ -73,8 +72,8 @@
   <div id="divQuery">
     <input id="txtLocation" type="text" value="" placeholder="ZIP Code or City, State" data-1p-ignore />
     <div class="buttons">
-      <button id="btnGetGps" type="button" title="Get GPS Location"><img src="images/nav/ic_gps_fixed_black_18dp_1x.png" class="light" />
-        <img src="images/nav/ic_gps_fixed_white_18dp_1x.png" class="dark" />
+      <button id="btnGetGps" type="button" title="Get GPS Location"><img src="images/nav/ic_gps_fixed_black_18dp_1x.png" class="light" alt="" />
+        <img src="images/nav/ic_gps_fixed_white_18dp_1x.png" class="dark" alt="" />
       </button>
       <button id="btnGetLatLng" type="submit">GO</button>
       <button id="btnClearQuery" type="reset">Reset</button>
@@ -208,5 +207,4 @@
   </div>
 
 </body>
-
 </html>
