@@ -17,9 +17,10 @@ const stationInfo = JSON.parse(await readFile('./datagenerators/output/stations.
 const app = express();
 const port = process.env.WS4KP_PORT ?? 8080;
 
-// Set X-Weatherstar header globally for playlist fallback detection
+// Set global response headers
 app.use((req, res, next) => {
 	res.setHeader('X-Weatherstar', 'true');
+	res.setHeader('Reporting-Endpoints', 'default="/reports",csp-endpoint="/csp"');
 	next();
 });
 
