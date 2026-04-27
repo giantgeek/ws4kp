@@ -1,6 +1,6 @@
 import parseIconUrl from './icons-parse.mjs';
 
-const addPath = (icon) => `images/icons/regional-maps/${icon}`;
+const addPath = (icon) => `/images/icons/regional-maps/${icon}`;
 
 const smallIcon = (link, _isNightTime) => {
 	let conditionIcon;
@@ -170,7 +170,7 @@ const smallIcon = (link, _isNightTime) => {
 
 		case 'blizzard':
 		case 'blizzard-n':
-			return addPath('Blowing Snow.gif');
+			return addPath('Blowing-Snow.gif');
 
 		default:
 			console.warn(`Unknown weather condition '${conditionIcon}' from ${link}; using fallback icon`);

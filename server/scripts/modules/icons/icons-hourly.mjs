@@ -1,5 +1,5 @@
 // internal function to add path to returned icon
-const addPath = (icon) => `images/icons/regional-maps/${icon}`;
+const addPath = (icon) => `/images/icons/regional-maps/${icon}`;
 
 const hourlyIcon = (skyCover, weather, iceAccumulation, probabilityOfPrecipitation, snowfallAmount, windSpeed, isNight = false) => {
 	// possible phenomenon

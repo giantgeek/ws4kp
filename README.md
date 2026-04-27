@@ -325,7 +325,7 @@ Thanks to the WeatherStar+ community for providing these discussions to further 
 
 ## Customization
 
-A hook is provided as `server/scripts/custom.js` to allow customizations to your own fork of this project, without accidentally pushing your customizations back upstream to the git repository. A sample file is provided at `server/scripts/custom.sample.js` and should be renamed to `custom.js` activate it.
+A hook is provided as `server/scripts/custom.js` (a minimal placeholder is committed so `/scripts/custom.js` does not 404). Edit that file for your deployment, or use `server/scripts/custom.sample.js` as a starting point for more involved changes.
 
 When using Docker:
 

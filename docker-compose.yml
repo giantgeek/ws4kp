@@ -1,7 +1,12 @@
+# Static image: npm ci + gulp in Dockerfile (nginx). Dev: Node on traefik-network (profile "dev").
+#
+# 502 from Traefik while the dev container is still running "npm ci" is normal; wait or refresh.
+# If 502 persists: Traefik may be sending backend traffic through HTTP_PROXY. On the Traefik
+# service, set NO_PROXY to include private ranges, e.g. NO_PROXY=127.0.0.1,localhost,172.16.0.0/12,10.0.0.0/8
 services:
   ws4kp:
     build:
-      context: . 
+      context: .
       dockerfile: Dockerfile
     restart: unless-stopped
     dns:
@@ -15,6 +20,49 @@ services:
       - "traefik.http.services.ws4kp.loadbalancer.server.port=8080"
       - "traefik.docker.network=traefik-network"
 
+  # Dev server for Traefik: same app as "make start" but reachable from the Traefik container.
+  # Use: make start-traefik  → http://ws4kp-dev.localhost  (stop the static ws4kp service if port/router conflicts).
+  ws4kp-dev:
+    profiles: [dev]
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    init: true
+    restart: unless-stopped
+    working_dir: /app
+    volumes:
+      - .:/app
+      - ws4kp_dev_node_modules:/app/node_modules
+    dns:
+      - 172.19.0.53
+      - 1.1.1.1
+    networks:
+      - traefik-network
+    environment:
+      WS4KP_PORT: "8080"
+      # Keep healthcheck / Node off any HTTP_PROXY; npm still uses proxy for registry if configured.
+      NO_PROXY: "127.0.0.1,localhost,::1"
+      no_proxy: "127.0.0.1,localhost,::1"
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:8080/"]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+      start_period: 180s
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.ws4kp-dev.rule=Host(`ws4kp-dev.localhost`)"
+      - "traefik.http.routers.ws4kp-dev.entrypoints=web"
+      - "traefik.http.routers.ws4kp-dev.service=ws4kp-dev"
+      - "traefik.http.services.ws4kp-dev.loadbalancer.server.port=8080"
+      - "traefik.http.services.ws4kp-dev.loadbalancer.healthcheck.path=/"
+      - "traefik.http.services.ws4kp-dev.loadbalancer.healthcheck.interval=5s"
+      - "traefik.http.services.ws4kp-dev.loadbalancer.healthcheck.timeout=3s"
+      - "traefik.docker.network=traefik-network"
+
 networks:
   traefik-network:
     external: true
+
+volumes:
+  ws4kp_dev_node_modules:

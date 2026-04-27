@@ -169,12 +169,16 @@ if (process.env?.DIST === '1') {
 	app.get('/index.html', index);
 	app.use('/geoip', geoip);
 	app.use('/resources', express.static('./server/scripts/modules'));
+	// Explicit mounts so /images/... always resolves (catch-all *name can miss some paths in Express 5)
+	app.use('/images', express.static('./server/images', staticOptions));
+	app.use('/fonts', express.static('./server/fonts', staticOptions));
+	app.use('/styles', express.static('./server/styles', staticOptions));
 	app.get('/', index);
 	app.get('/.well-known/appspecific/com.chrome.devtools.json', devTools);
 	app.get('*name', express.static('./server', staticOptions));
 }
 
-const server = app.listen(port, () => {
+const server = app.listen(port, '0.0.0.0', () => {
 	console.log(`Server listening on port ${port}`);
 });
 
