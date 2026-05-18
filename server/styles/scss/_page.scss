@@ -562,9 +562,6 @@ body {
 			line-height: 14px;
 			vertical-align: bottom;
 			cursor: pointer;
-			-webkit-user-select: none;
-			-moz-user-select: none;
-			-ms-user-select: none;
 			user-select: none;
 			background-repeat: repeat-x;
 			background-position: -1px -1px;
@@ -612,7 +609,6 @@ body {
 			border-color: #ccd1d5;
 			border-color: rgba(27, 31, 36, .15);
 			background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg'%3e%3clinearGradient id='o' x2='0' y2='1'%3e%3cstop stop-color='%23f6f8fa'/%3e%3cstop offset='90%25' stop-color='%23ebf0f4'/%3e%3c/linearGradient%3e%3crect width='100%25' height='100%25' fill='url(%23o)'/%3e%3c/svg%3e");
-			background-image: -moz-linear-gradient(top, #f6f8fa, #ebf0f4 90%);
 			background-image: linear-gradient(180deg, #f6f8fa, #ebf0f4 90%);
 			filter: progid:DXImageTransform.Microsoft.Gradient(startColorstr='#FFF6F8FA', endColorstr='#FFEAEFF3')
 		}
@@ -628,7 +624,6 @@ body {
 			border-color: #caccd1;
 			border-color: rgba(27, 31, 36, .15);
 			background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg'%3e%3clinearGradient id='o' x2='0' y2='1'%3e%3cstop stop-color='%23f3f4f6'/%3e%3cstop offset='90%25' stop-color='%23e9ebef'/%3e%3c/linearGradient%3e%3crect width='100%25' height='100%25' fill='url(%23o)'/%3e%3c/svg%3e");
-			background-image: -moz-linear-gradient(top, #f3f4f6, #e9ebef 90%);
 			background-image: linear-gradient(180deg, #f3f4f6, #e9ebef 90%);
 			filter: progid:DXImageTransform.Microsoft.Gradient(startColorstr='#FFF3F4F6', endColorstr='#FFE8EAEE')
 		}
@@ -677,7 +672,6 @@ body {
 				border-color: #ccd1d5;
 				border-color: rgba(27, 31, 36, .15);
 				background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg'%3e%3clinearGradient id='o' x2='0' y2='1'%3e%3cstop stop-color='%23f6f8fa'/%3e%3cstop offset='90%25' stop-color='%23ebf0f4'/%3e%3c/linearGradient%3e%3crect width='100%25' height='100%25' fill='url(%23o)'/%3e%3c/svg%3e");
-				background-image: -moz-linear-gradient(top, #f6f8fa, #ebf0f4 90%);
 				background-image: linear-gradient(180deg, #f6f8fa, #ebf0f4 90%);
 				filter: progid:DXImageTransform.Microsoft.Gradient(startColorstr='#FFF6F8FA', endColorstr='#FFEAEFF3')
 			}
@@ -693,7 +687,6 @@ body {
 				border-color: #caccd1;
 				border-color: rgba(27, 31, 36, .15);
 				background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg'%3e%3clinearGradient id='o' x2='0' y2='1'%3e%3cstop stop-color='%23f3f4f6'/%3e%3cstop offset='90%25' stop-color='%23e9ebef'/%3e%3c/linearGradient%3e%3crect width='100%25' height='100%25' fill='url(%23o)'/%3e%3c/svg%3e");
-				background-image: -moz-linear-gradient(top, #f3f4f6, #e9ebef 90%);
 				background-image: linear-gradient(180deg, #f3f4f6, #e9ebef 90%);
 				filter: progid:DXImageTransform.Microsoft.Gradient(startColorstr='#FFF3F4F6', endColorstr='#FFE8EAEE')
 			}
@@ -743,7 +736,6 @@ body {
 				border-color: #2f3439;
 				border-color: rgba(240, 246, 252, .1);
 				background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg'%3e%3clinearGradient id='o' x2='0' y2='1'%3e%3cstop stop-color='%2321262d'/%3e%3cstop offset='90%25' stop-color='%231a1e23'/%3e%3c/linearGradient%3e%3crect width='100%25' height='100%25' fill='url(%23o)'/%3e%3c/svg%3e");
-				background-image: -moz-linear-gradient(top, #21262d, #1a1e23 90%);
 				background-image: linear-gradient(180deg, #21262d, #1a1e23 90%);
 				filter: progid:DXImageTransform.Microsoft.Gradient(startColorstr='#FF21262D', endColorstr='#FF191D22')
 			}
@@ -758,7 +750,6 @@ body {
 				background-position: 0 -0.5em;
 				border-color: #8b949e;
 				background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg'%3e%3clinearGradient id='o' x2='0' y2='1'%3e%3cstop stop-color='%2330363d'/%3e%3cstop offset='90%25' stop-color='%23292e33'/%3e%3c/linearGradient%3e%3crect width='100%25' height='100%25' fill='url(%23o)'/%3e%3c/svg%3e");
-				background-image: -moz-linear-gradient(top, #30363d, #292e33 90%);
 				background-image: linear-gradient(180deg, #30363d, #292e33 90%);
 				filter: progid:DXImageTransform.Microsoft.Gradient(startColorstr='#FF30363D', endColorstr='#FF282D32')
 			}
