@@ -1,4 +1,4 @@
-.PHONY: help install clean build lint lint-fix format start start-prod start-traefik stop-traefik-dev stop test docker-build docker-run compose-up compose-up-build compose-down compose-logs compose-restart compose-status update
+.PHONY: help install clean build lint lint-fix format start start-prod start-traefik stop-traefik-dev stop test check-dependencies docker-build docker-run compose-up compose-up-build compose-down compose-logs compose-restart compose-status update
 
 # Re-run npm ci only when package manifests change (avoids missing node_modules / stale deps).
 NPM_STAMP := node_modules/.make-deps-stamp
@@ -45,6 +45,10 @@ stop: ## Stop the local application process
 
 test: $(NPM_STAMP) ## Run lint-all as a stand-in test suite
 	npm run lintall
+
+check-dependencies: $(NPM_STAMP) ## Report outdated npm packages
+	@echo "Checking for dependency updates..."
+	npm outdated || true
 
 docker-build: ## Build the Docker image using docker compose
 	docker compose build --no-cache
