@@ -9,7 +9,7 @@ COPY . .
 RUN npm run build
 RUN rm -f dist/playlist.json
 
-FROM nginx:1.31.0-alpine
+FROM nginx:1.31.1-alpine
 
 LABEL maintainer="Scott Fredrickson <scott@giantgeek.com>"
 
