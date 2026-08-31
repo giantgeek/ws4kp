@@ -1,4 +1,4 @@
-FROM node:24-alpine AS node-builder
+FROM node:26-alpine AS node-builder
 WORKDIR /app
 
 # Install deps only when manifests change (better layer cache).
@@ -9,7 +9,7 @@ COPY . .
 RUN npm run build
 RUN rm -f dist/playlist.json
 
-FROM nginx:1.31.3-alpine
+FROM nginx:1.31.4-alpine
 
 LABEL maintainer="Scott Fredrickson <scott@giantgeek.com>"
 
