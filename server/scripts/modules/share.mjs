@@ -1,4 +1,5 @@
 import { elemForEach } from './utils/elem.mjs';
+import { storageGet } from './utils/safe-storage.mjs';
 
 document.addEventListener('DOMContentLoaded', () => init());
 
@@ -46,8 +47,8 @@ const createLink = async (e) => {
 	}));
 
 	// add the location string
-	queryStringElements.latLonQuery = localStorage.getItem('latLonQuery');
-	queryStringElements.latLon = localStorage.getItem('latLon');
+	queryStringElements.latLonQuery = storageGet('latLonQuery');
+	queryStringElements.latLon = storageGet('latLon');
 
 	const queryString = (new URLSearchParams(queryStringElements)).toString();
 

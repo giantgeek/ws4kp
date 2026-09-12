@@ -1,4 +1,5 @@
 import { parseQueryString } from '../share.mjs';
+import { storageGet, storageSet, storageRemove } from './safe-storage.mjs';
 
 const SETTINGS_KEY = 'Settings';
 
@@ -195,28 +196,36 @@ class Setting {
 
 	storeToLocalStorage(value) {
 		if (!this.sticky) return;
-		const allSettingsString = localStorage?.getItem(SETTINGS_KEY) ?? '{}';
-		const allSettings = JSON.parse(allSettingsString);
-		allSettings[this.shortName] = value;
-		localStorage?.setItem(SETTINGS_KEY, JSON.stringify(allSettings));
+		try {
+			const allSettingsString = storageGet(SETTINGS_KEY) ?? '{}';
+			const allSettings = JSON.parse(allSettingsString);
+			allSettings[this.shortName] = value;
+			storageSet(SETTINGS_KEY, JSON.stringify(allSettings));
+		} catch {
+			// Storage unavailable or invalid JSON
+		}
 	}
 
 	// Conditional storage method for stickyRead settings
 	conditionalStoreToLocalStorage(value, shouldStore) {
 		if (!this.stickyRead) return;
-		const allSettingsString = localStorage?.getItem(SETTINGS_KEY) ?? '{}';
-		const allSettings = JSON.parse(allSettingsString);
+		try {
+			const allSettingsString = storageGet(SETTINGS_KEY) ?? '{}';
+			const allSettings = JSON.parse(allSettingsString);
 
-		if (shouldStore) {
-			allSettings[this.shortName] = value;
-		} else {
-			delete allSettings[this.shortName];
+			if (shouldStore) {
+				allSettings[this.shortName] = value;
+			} else {
+				delete allSettings[this.shortName];
+			}
+			storageSet(SETTINGS_KEY, JSON.stringify(allSettings));
+		} catch {
+			// Storage unavailable or invalid JSON
 		}
-		localStorage?.setItem(SETTINGS_KEY, JSON.stringify(allSettings));
 	}
 
 	getFromLocalStorage() {
-		const allSettings = localStorage?.getItem(SETTINGS_KEY);
+		const allSettings = storageGet(SETTINGS_KEY);
 		try {
 			if (allSettings) {
 				const storedValue = JSON.parse(allSettings)?.[this.shortName];
@@ -234,7 +243,7 @@ class Setting {
 			}
 		} catch (error) {
 			console.warn(`Failed to parse settings from localStorage: ${error} - allSettings=${allSettings}`);
-			localStorage?.removeItem(SETTINGS_KEY);
+			storageRemove(SETTINGS_KEY);
 		}
 		return null;
 	}

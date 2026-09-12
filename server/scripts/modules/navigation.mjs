@@ -6,6 +6,7 @@ import { safeJson } from './utils/fetch.mjs';
 import { getPoint } from './utils/weather.mjs';
 import { debugFlag } from './utils/debug.mjs';
 import settings from './settings.mjs';
+import { storageSet } from './utils/safe-storage.mjs';
 
 document.addEventListener('DOMContentLoaded', () => {
 	init();
@@ -286,7 +287,7 @@ const currentDisplay = () => displays[currentDisplayIndex()];
 const setPlaying = (newValue) => {
 	playing = newValue;
 	const playButton = document.querySelector('#NavigatePlay');
-	localStorage.setItem('play', playing);
+	storageSet('play', playing);
 
 	if (playing) {
 		noSleep(true).catch(() => {

@@ -9,6 +9,7 @@ import settings from './modules/settings.mjs';
 import AutoComplete from './modules/autocomplete.mjs';
 import { loadAllData } from './modules/utils/data-loader.mjs';
 import { debugFlag } from './modules/utils/debug.mjs';
+import { storageGet, storageSet, storageRemove } from './modules/utils/safe-storage.mjs';
 
 document.addEventListener('DOMContentLoaded', () => {
 	init();
@@ -109,9 +110,9 @@ const init = async () => {
 	const loadFromParsed = !!parsedParameters.latLon;
 
 	// Auto load the parsed parameters and fall back to the previous query
-	const query = parsedParameters.latLonQuery ?? localStorage.getItem('latLonQuery');
-	const latLon = parsedParameters.latLon ?? localStorage.getItem('latLon');
-	const fromGPS = localStorage.getItem('latLonFromGPS') && !loadFromParsed;
+	const query = parsedParameters.latLonQuery ?? storageGet('latLonQuery');
+	const latLon = parsedParameters.latLon ?? storageGet('latLon');
+	const fromGPS = storageGet('latLonFromGPS') && !loadFromParsed;
 
 	if (parsedParameters.latLonQuery && !parsedParameters.latLon) {
 		const txtAddress = document.querySelector(TXT_ADDRESS_SELECTOR);
@@ -153,7 +154,7 @@ const init = async () => {
 	}
 
 	// Auto-play logic: also play immediately if kiosk mode is enabled
-	const play = settings.kiosk.value || urlKioskCheckbox === 'true' ? 'true' : localStorage.getItem('play');
+	const play = settings.kiosk.value || urlKioskCheckbox === 'true' ? 'true' : storageGet('play');
 	if (play === null || play === 'true') postMessage('navButton', 'play');
 
 	document.querySelector('#btnClearQuery').addEventListener('click', () => {
@@ -165,12 +166,12 @@ const init = async () => {
 		document.querySelector('#spanOfficeId').innerHTML = '';
 		document.querySelector('#spanGridPoint').innerHTML = '';
 
-		localStorage.removeItem('play');
+		storageRemove('play');
 		postMessage('navButton', 'play');
 
-		localStorage.removeItem('latLonQuery');
-		localStorage.removeItem('latLon');
-		localStorage.removeItem('latLonFromGPS');
+		storageRemove('latLonQuery');
+		storageRemove('latLon');
+		storageRemove('latLonFromGPS');
 		document.querySelector(BNT_GET_GPS_SELECTOR).classList.remove('active');
 	});
 
@@ -211,7 +212,7 @@ const autocompleteOnSelect = async (suggestion) => {
 
 	const loc = data.locations[0];
 	if (loc) {
-		localStorage.removeItem('latLonFromGPS');
+		storageRemove('latLonFromGPS');
 		document.querySelector(BNT_GET_GPS_SELECTOR).classList.remove('active');
 		doRedirectToGeometry(loc.feature.geometry);
 	} else {
@@ -222,8 +223,8 @@ const autocompleteOnSelect = async (suggestion) => {
 const doRedirectToGeometry = (geom, haveDataCallback) => {
 	const latLon = { lat: round2(geom.y, 4), lon: round2(geom.x, 4) };
 	// Save the query
-	localStorage.setItem('latLonQuery', document.querySelector(TXT_ADDRESS_SELECTOR).value);
-	localStorage.setItem('latLon', JSON.stringify(latLon));
+	storageSet('latLonQuery', document.querySelector(TXT_ADDRESS_SELECTOR).value);
+	storageSet('latLon', JSON.stringify(latLon));
 
 	// get the data
 	loadData(latLon, haveDataCallback);
@@ -471,7 +472,7 @@ const btnGetGpsClick = async () => {
 	// toggle first
 	if (btn.classList.contains('active')) {
 		btn.classList.remove('active');
-		localStorage.removeItem('latLonFromGPS');
+		storageRemove('latLonFromGPS');
 		return;
 	}
 
@@ -493,9 +494,9 @@ const getForecastFromLatLon = (latitude, longitude, fromGps = false) => {
 		const location = point.properties.relativeLocation.properties;
 		// Save the query
 		const query = `${location.city}, ${location.state}`;
-		localStorage.setItem('latLon', JSON.stringify({ lat: latitude, lon: longitude }));
-		localStorage.setItem('latLonQuery', query);
-		localStorage.setItem('latLonFromGPS', fromGps);
+		storageSet('latLon', JSON.stringify({ lat: latitude, lon: longitude }));
+		storageSet('latLonQuery', query);
+		storageSet('latLonFromGPS', fromGps);
 		txtAddress.value = `${location.city}, ${location.state}`;
 	});
 };

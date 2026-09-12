@@ -9,6 +9,7 @@ import { parseQueryString } from './share.mjs';
 import settings from './settings.mjs';
 import { elemForEach } from './utils/elem.mjs';
 import { debugFlag } from './utils/debug.mjs';
+import { storageGet, storageSet } from './utils/safe-storage.mjs';
 
 class WeatherDisplay {
 	constructor(navId, elemId, name, defaultEnabled) {
@@ -63,12 +64,12 @@ class WeatherDisplay {
 		}
 
 		// get the saved status of the checkbox, but defer to a value set in the url
-		let savedStatus = urlState ?? window.localStorage.getItem(`display-enabled: ${this.elemId}`);
+		let savedStatus = urlState ?? storageGet(`display-enabled: ${this.elemId}`);
 		if (savedStatus === null) savedStatus = defaultEnabled;
 		this.isEnabled = !!((savedStatus === 'true' || savedStatus === true));
 
 		// refresh (or initially store the state of the checkbox)
-		window.localStorage.setItem(`display-enabled: ${this.elemId}`, this.isEnabled);
+		storageSet(`display-enabled: ${this.elemId}`, this.isEnabled);
 
 		// create a checkbox in the selected displays area
 		const label = document.createElement('label');
@@ -98,7 +99,7 @@ class WeatherDisplay {
 		// update the state
 		this.isEnabled = e.target.checked;
 		// store the value for the next load
-		window.localStorage.setItem(`display-enabled: ${this.elemId}`, this.isEnabled);
+		storageSet(`display-enabled: ${this.elemId}`, this.isEnabled);
 		// calling get data will update the status and actually get the data if we're set to enabled
 		this.getData();
 	}
