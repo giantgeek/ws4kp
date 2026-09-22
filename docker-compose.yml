@@ -9,6 +9,7 @@ services:
       context: .
       dockerfile: Dockerfile
     restart: unless-stopped
+    mem_limit: 512m
     dns:
       - 172.19.0.53  # Pi-hole DNS
       - 1.1.1.1      # Cloudflare fallback

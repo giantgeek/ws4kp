@@ -1,4 +1,14 @@
-.git/
-Dockerfile
-.vscode/
-dist/
+# Minimal build context for runtime-only image
+*
+
+!src/main/webapp/
+!src/main/webapp/**
+
+!dist/
+!dist/**
+
+!nginx.conf
+
+!static-env-handler.sh
+
+!ngx_pagespeed_csp_nonce.example.conf

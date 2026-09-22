@@ -50,7 +50,10 @@ check-dependencies: $(NPM_STAMP) ## Report outdated npm packages
 	@echo "Checking for dependency updates..."
 	npm outdated || true
 
-docker-build: ## Build the Docker image using docker compose
+docker-build: build ## Build the Docker image using docker compose
+	docker compose build
+
+docker-rebuild: build ## Rebuild Docker image without cache
 	docker compose build --no-cache
 
 docker-run: docker-build ## Build and run the Docker containers
