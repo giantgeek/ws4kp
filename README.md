@@ -111,6 +111,21 @@ For all modes, access WeatherStar by going to: http://localhost:8080/
 
 ### Docker Deployments
 
+#### Local Traefik stack (this fork)
+
+Build assets on the host, then use a runtime-only nginx image (no `npm ci` / `npm run build` inside the production `Dockerfile` — Docker Desktop VM RAM is limited):
+
+```bash
+make build          # npm run build → dist/
+make docker-run     # host build + compose up → http://ws4kp.localhost
+make docker-rebuild # --no-cache when needed
+make start-traefik  # Node dev profile via Traefik → http://ws4kp-dev.localhost
+```
+
+Keep `Dockerfile`, `Makefile`, `docker-compose.yml`, and `.dockerignore` aligned when changing copy paths. See `AGENTS.md`.
+
+#### Upstream / generic Docker
+
 To run via Docker using a "static deployment" where everything happens in the browser (no server component, like STATIC=1):
 
 ```bash
