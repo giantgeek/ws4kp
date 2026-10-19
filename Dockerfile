@@ -1,5 +1,5 @@
 # Runtime-only image. Build on the host first (`make build` / `make docker-build`).
-FROM nginx:1.31.5-alpine
+FROM nginx:1.31.7-alpine
 
 LABEL maintainer="Scott Fredrickson <scott@giantgeek.com>"
 
