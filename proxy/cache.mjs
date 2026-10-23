@@ -54,8 +54,8 @@ class HttpCache {
 		// Strip cache-related headers and pass through others
 		Object.entries(headers || {}).forEach(([key, value]) => {
 			const lowerKey = key.toLowerCase();
-			// Skip cache-related headers that should be controlled by our proxy
-			if (!['cache-control', 'expires', 'etag', 'last-modified'].includes(lowerKey)) {
+			// Skip cache-related headers that should be controlled by our proxy, and upstream server/technology headers
+			if (!['cache-control', 'expires', 'etag', 'last-modified', 'server', 'x-powered-by'].includes(lowerKey)) {
 				res.header(lowerKey, value);
 			}
 		});
@@ -227,11 +227,11 @@ class HttpCache {
 						console.error(`🚫 ${statusCode}      | ${fullUrl}`);
 					}
 
-					// Filter out cache headers before storing - we don't need them in our cache
+					// Filter out cache and upstream server/technology headers before storing - we don't need them in our cache
 					const filteredHeaders = {};
 					Object.entries(getRes.headers || {}).forEach(([key, value]) => {
 						const lowerKey = key.toLowerCase();
-						if (!['cache-control', 'expires', 'etag', 'last-modified'].includes(lowerKey)) {
+						if (!['cache-control', 'expires', 'etag', 'last-modified', 'server', 'x-powered-by'].includes(lowerKey)) {
 							filteredHeaders[key] = value;
 						}
 					});

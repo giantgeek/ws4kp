@@ -15,6 +15,8 @@ const regionalCities = JSON.parse(await readFile('./datagenerators/output/region
 const stationInfo = JSON.parse(await readFile('./datagenerators/output/stations.json'));
 
 const app = express();
+// don't advertise Express in the X-Powered-By header
+app.disable('x-powered-by');
 const port = process.env.WS4KP_PORT ?? 8080;
 
 // Set global response headers
