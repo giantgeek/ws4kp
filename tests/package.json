@@ -12,5 +12,8 @@
 		"chalk": "^5.4.1",
 		"puppeteer": "^24.8.2"
 	},
-	"type": "module"
+	"type": "module",
+	"engines": {
+		"node": "^24.22.1"
+	}
 }
