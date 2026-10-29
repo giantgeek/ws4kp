@@ -8,6 +8,10 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        BUILD_DATE: ${BUILD_DATE:-unknown}
+      tags:
+        - "ws4kp-ws4kp:${BUILD_TAG:-untagged}"
     restart: unless-stopped
     mem_limit: 512m
     dns:
@@ -28,6 +32,10 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.dev
+      args:
+        BUILD_DATE: ${BUILD_DATE:-unknown}
+      tags:
+        - "ws4kp-ws4kp-dev:${BUILD_TAG:-untagged}"
     init: true
     restart: unless-stopped
     working_dir: /app
