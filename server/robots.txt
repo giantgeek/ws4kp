@@ -1,0 +1,4 @@
+#robots.txt (for details see - https://www.robotstxt.org/robotstxt.html)
+
+User-agent: *
+Disallow:
