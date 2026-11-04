@@ -387,6 +387,18 @@ This web site should NOT be used in life threatening weather situations, or be r
 
 The WeatherSTAR 4000 unit and technology is owned by The Weather Channel. This web site is a free, non-profit work by fans. All of the back ground graphics of this web site were created from scratch.  The icons were created by Charles Abel and Nick Smith (http://twcclassics.com/downloads/icons.html) as well as by Malek Masoud.  The fonts were originally created by Nick Smith (http://twcclassics.com/downloads/fonts.html).
 
+## Environment variables
+
+See also [Default query string parameters](#default-query-string-parameters-environment-variables).
+
+| Variable | Needed | Purpose |
+|---|---|---|
+| `WS4KP_PORT` | Optional | Server port; set to `8080` in `docker-compose.yml` |
+| `WSQS_*` | Optional | Default query string values |
+| `NO_PROXY`, `no_proxy` | Optional | Proxy exclusions; set in `docker-compose.yml` |
+| `BUCKET`, `BUCKET_PREVIEW`, `DISTRIBUTION_ID`, `DISTRIBUTION_ID_PREVIEW` | Optional | Used only by the `gulp/publish-frontend.mjs` publish task |
+| `BUILD_TAG`, `BUILD_DATE` | Optional | Docker image tag and build date; default to `untagged` and `unknown` |
+
 ## MAINTAINERS
 
 Scott Fredrickson (scott at giantgeek.com)
