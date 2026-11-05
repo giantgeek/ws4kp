@@ -1,3 +1,11 @@
+# Normalize line endings: LF in the repo and working tree
+* text=auto eol=lf
+
+# Windows scripts keep CRLF
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Existing rules
 *.js text eol=lf
 *.mjs text eol=lf
 *.ejs text eol=lf
