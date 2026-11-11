@@ -21,35 +21,49 @@ pipeline {
     }
 
     stages {
-        stage('Info') {
-            steps {
-                sh 'node --version'
-                sh 'npm --version'
+        // Skip everything (including deploys) when a build was started automatically but has
+        // no new commits, e.g. by branch indexing, a wiped workspace or a re-poll.
+        // Manual "Build Now" / "Build with Parameters" always runs.
+        stage('Pipeline') {
+            when {
+                anyOf {
+                    triggeredBy 'UserIdCause'
+                    expression { !currentBuild.changeSets.isEmpty() }       // new commits since last build
+                    expression { env.GIT_PREVIOUS_SUCCESSFUL_COMMIT == null } // first successful build
+                }
             }
-        }
+            stages {
+                stage('Info') {
+                    steps {
+                        sh 'node --version'
+                        sh 'npm --version'
+                    }
+                }
 
-        stage('Install') {
-            steps {
-                sh 'npm ci'
-            }
-        }
+                stage('Install') {
+                    steps {
+                        sh 'npm ci'
+                    }
+                }
 
-        stage('Lint') {
-            steps {
-                sh 'npm run lint'
-            }
-        }
+                stage('Lint') {
+                    steps {
+                        sh 'npm run lint'
+                    }
+                }
 
-        stage('Build') {
-            steps {
-                // Same as `make build`: gulp buildDist -> dist/
-                sh 'npm run build'
-            }
-        }
+                stage('Build') {
+                    steps {
+                        // Same as `make build`: gulp buildDist -> dist/
+                        sh 'npm run build'
+                    }
+                }
 
-        stage('Archive') {
-            steps {
-                archiveArtifacts artifacts: 'dist/**', fingerprint: true
+                stage('Archive') {
+                    steps {
+                        archiveArtifacts artifacts: 'dist/**', fingerprint: true
+                    }
+                }
             }
         }
     }
