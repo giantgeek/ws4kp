@@ -16,3 +16,9 @@ dist/*
 
 #environment variables
 .env
+
+# Eclipse
+.classpath
+.project
+.settings/
+.checkstyle
