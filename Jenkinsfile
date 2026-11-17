@@ -21,15 +21,17 @@ pipeline {
     }
 
     stages {
-        // Skip everything (including deploys) when a build was started automatically but has
-        // no new commits, e.g. by branch indexing, a wiped workspace or a re-poll.
+        // Skip everything (including deploys) when a build was started automatically and the
+        // commit has already built successfully, e.g. by a timer, branch indexing or a re-poll.
+        // Compares against the last *successful* build, so a failed commit keeps rebuilding
+        // (and failing) instead of being masked by skipped "SUCCESS" runs.
         // Manual "Build Now" / "Build with Parameters" always runs.
         stage('Pipeline') {
             when {
                 anyOf {
                     triggeredBy 'UserIdCause'
-                    expression { !currentBuild.changeSets.isEmpty() }       // new commits since last build
-                    expression { env.GIT_PREVIOUS_SUCCESSFUL_COMMIT == null } // first successful build
+                    // Also true for the first build, when there is no previous successful commit
+                    expression { env.GIT_COMMIT != env.GIT_PREVIOUS_SUCCESSFUL_COMMIT }
                 }
             }
             stages {
