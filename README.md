@@ -399,6 +399,8 @@ See also [Default query string parameters](#default-query-string-parameters-envi
 | `BUCKET`, `BUCKET_PREVIEW`, `DISTRIBUTION_ID`, `DISTRIBUTION_ID_PREVIEW` | Optional | Used only by the `gulp/publish-frontend.mjs` publish task |
 | `BUILD_TAG`, `BUILD_DATE` | Optional | Docker image tag and build date; default to `untagged` and `unknown` |
 
+The Java4Shell JVM flag `-XX:-UseBASE64Intrinsics` used by the Java apps is not needed here: ws4kp runs on nginx and Node, not a JVM.
+
 ## MAINTAINERS
 
 Scott Fredrickson (scott at giantgeek.com)

@@ -14,3 +14,5 @@ Do not duplicate content from these files — read them directly:
 ## For Claude
 
 Follow all rules in `AGENTS.md`. Use `README.md` and any additional docs above for setup commands, URLs, and detailed configuration.
+
+The Java4Shell flag `-XX:-UseBASE64Intrinsics` does **not** apply to ws4kp (no JVM); do not add it. See **Rules for agents** in `AGENTS.md`.

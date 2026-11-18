@@ -31,6 +31,7 @@ Node.js, Gulp/Webpack, SASS, Luxon; static nginx (runtime-only image) or Node pr
 - Traefik needs `NO_PROXY` for Docker backends
 - NOAA API is US-only — do not assume international location support
 - Run `npm install` before suggesting local dev commands
+- The Java4Shell mitigation flag `-XX:-UseBASE64Intrinsics` (required in the Java apps) does **not** apply here: no image runs a JVM. `entrypoint.sh` is a leftover Java launcher that no Dockerfile, compose file or Makefile uses — do not add the flag to it or to ws4kp's Dockerfiles
 
 ## Docker conventions (local Desktop)
 
