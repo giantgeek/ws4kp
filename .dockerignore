@@ -1,4 +1,5 @@
-# Minimal build context for runtime-only image
+# Minimal build context for the runtime-only (nginx) Dockerfile.
+# Dockerfile.server and Dockerfile.dev use their own <Dockerfile>.dockerignore files.
 *
 
 !src/main/webapp/
@@ -11,4 +12,3 @@
 
 !static-env-handler.sh
 
-!ngx_pagespeed_csp_nonce.example.conf

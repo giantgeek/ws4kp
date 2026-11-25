@@ -1,0 +1,12 @@
+# Build context for Dockerfile.server (BuildKit uses <Dockerfile>.dockerignore over .dockerignore).
+# The root .dockerignore is a runtime-only allow-list for the nginx image; this image runs
+# `npm ci` + `npm run build` inside the container, so it needs the full source tree.
+.git
+.github
+.idea
+node_modules
+dist
+**/debug.log
+*.log
+.env
+.env.*
